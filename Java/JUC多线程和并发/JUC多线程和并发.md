@@ -78,7 +78,7 @@ AAA   come in …… AAA   update number value:60 mainmission is over, num value
 
 **num++操作实际的底层操作：**
 
-![img](.\images\clipboard.png)
+![img](./images/clipboard.png)
 
 代码：
 
@@ -206,7 +206,7 @@ main    AtomicInteger type, finally num value:20000
 
 有序性：计算机在执行程序时，为了提高性能，编译器和处理器常常会对**指令做重排**，一般分以下三种：
 
-![image-20191223174044877](.\images\image-20191223174044877.png)
+![image-20191223174044877](./images/image-20191223174044877.png)
 
 源代码 -》编译器优化的重排 - 》指令并行的重排 -》 内存系统的重排 -》 最终执行的指令。
 
@@ -265,7 +265,7 @@ volatile实现禁止指令重排优化，从而避免多线程环境下程序出
 
 由于编译器和处理器都能执行指令重排优化。如果在指令间插入一条MemoryBarrier则会告诉编译器和CPU，不管什么指令都不能和这条MemoryBarrier指令重排序，也就是说***通过插入内存屏障禁止在内存屏障前后的指令执行重排序优化***。内存屏障的另一个作用时强制刷出各种CPU的缓存数据，因此任何CPU上的线程都能读取到这些数据的最新版本。
 
-![image-20191224104348627](.\images\image-20191224104348627.png)
+![image-20191224104348627](./images/image-20191224104348627.png)
 
 > **小结：线程安全性获得保证.**
 
@@ -293,7 +293,7 @@ JMM（Java Memory Model）本身是一种抽象的概念，并不真实存在，
 
 JVM运行程序的实体时线程，而每个线程创建时JVM都会为其创建一个工作内存（有些地方称之为栈空间），工作内存时每个线程的私有数据区域，而Java内存模型中规定，所有变量都存储在主内存，主内存是共享内存区域，所有线程都可以访问，但线程对比哪里的操作（读取和赋值）必须在各自工作内存中进行，首先将变量从主内存拷贝到自己的工作内存空间，然后对变量进行操作，操作完成后再将变量协会主内存，不能直接操作内存中的变量，各个线程中的工作内存中存储着主内存中的变量副本拷贝，因此，不同的线程间无法访问彼此的工作内存，线程间的通信（传值）必须通过主内存来完成。
 
-![img](.\images\jmm.png)
+![img](./images/jmm.png)
 
 ### 3. 在哪些地方用过volatile
 
@@ -407,7 +407,7 @@ AtomicInteger.compareAndSet(int expect, indt update)源码。
 
 多个线程都拿到主内存中的变量值的副本5。第一个线程跟期望值均为5，则进行更新，将值改为2019，并写回主内存。此时主内存中的值为2019，另一个线程拿到的真实值跟期望值不同，所以修改失败。
 
-![image-20191224140805925](.\images\image-20191224140805925.png)
+![image-20191224140805925](./images/image-20191224140805925.png)
 
 第一个参数为拿到的期望值，如果期望值一致，进行update赋值，如果期望值不一致，证明数据被修改过，返回fasle，取消赋值
 
@@ -475,7 +475,7 @@ public final int getAndIncrement() {
 }
 ```
 
-![image-20191224141417761](.\images\image-20191224141417761.png)
+![image-20191224141417761](./images/image-20191224141417761.png)
 
 2. UnSafe(原子整型做num++操作，不需要用synchronized也能保证多线程安全的原因)
 
@@ -485,7 +485,7 @@ public final int getAndIncrement() {
 
    - 变量ValueOffset，便是该变量在内存中的偏移地址, 因为UnSafe就是根据内存偏移地址获取数据的
 
-![image-20191224141558560](.\images\image-20191224141558560.png)
+![image-20191224141558560](./images/image-20191224141558560.png)
 
    - 变量value和volatile修饰，保证了多线程之间的可见性.
 
@@ -498,15 +498,15 @@ public final int getAndIncrement() {
 
    
 
-![image-20191224141802800](.\images\image-20191224141802800.png)
+![image-20191224141802800](./images/image-20191224141802800.png)
 
    
 
-![image-20191224141809447](.\images\image-20191224141809447.png)
+![image-20191224141809447](./images/image-20191224141809447.png)
 
    
 
-![image-20191224141818558](.\images\image-20191224141818558.png)
+![image-20191224141818558](./images/image-20191224141818558.png)
 
    
 
@@ -543,7 +543,7 @@ public final int getAndIncrement() {
 
    
 
-![image-20191224145033613](.\images\image-20191224145033613.png)
+![image-20191224145033613](./images/image-20191224145033613.png)
 
 2. 只能保证一个共享变量的原子操作
 
@@ -557,7 +557,7 @@ public final int getAndIncrement() {
 
 ### 1. ABA问题的产生(狸猫换太子)
 
-![image-20191224145310925](.\images\image-20191224145310925.png)
+![image-20191224145310925](./images/image-20191224145310925.png)
 
 CAS算法实现一个重要前提就是需要取出内存中的数据并在当下时刻比较并替换, 那么在这个时间差里, 会导致数据的变化.(虽然结果一致, 但是中间经历的过程不确定)
 
@@ -2002,7 +2002,7 @@ t4  ####invoked set()
 
 阻塞队列在数据结构钟所起的作用大致如下：
 
-![image-20191225163833098](.\images\image-20191225163833098.png)
+![image-20191225163833098](./images/image-20191225163833098.png)
 
 * 当阻塞队列是空时, 从队列中获取元素的操作将会被阻塞.
 
@@ -2041,7 +2041,7 @@ t4  ####invoked set()
 
 1. 架构
 
-![image-20191225165213580](.\images\image-20191225165213580.png)
+![image-20191225165213580](./images/image-20191225165213580.png)
 
 2. 种类分析
 
@@ -2069,7 +2069,7 @@ t4  ####invoked set()
 
 #### 1. 生产者消费者模式——传统版
 
-![image-20191225181116243](.\images\image-20191225181116243.png)
+![image-20191225181116243](./images/image-20191225181116243.png)
 
    
 
@@ -2672,7 +2672,7 @@ AA******come in Callable
 
 ​    Java中的线程池是通过Executor框架实现的, 该框架中用到了Executor、**Executors**、ExecutorService、**ThreadPoolExecutor**这几个类.
 
-![image-20191226152101256](.\images\image-20191226152101256.png)
+![image-20191226152101256](./images/image-20191226152101256.png)
 
 可以类比集合框架的顶级接口Collection接口，**ThreadPoolExecutor**作为java.util.concurrent包对外提供基础实现，以内部线程池的形式对外提供管理任务执行，线程调度，线程池管理等等服务。
 
@@ -2692,7 +2692,7 @@ AA******come in Callable
 
   
 
-![image-20191226160026340](.\images\image-20191226160026340.png)
+![image-20191226160026340](./images/image-20191226160026340.png)
 
 * Executors.newSingleThreadExecutor()    一池一线程
 
@@ -2704,7 +2704,7 @@ AA******come in Callable
 
   
 
-![image-20191226155823860](.\images\image-20191226155823860.png)
+![image-20191226155823860](./images/image-20191226155823860.png)
 
 * Executors.newCachedThreadPool()    一池N线程
 
@@ -2716,7 +2716,7 @@ AA******come in Callable
 
   
 
-![image-20191226155914244](.\images\image-20191226155914244.png)
+![image-20191226155914244](./images/image-20191226155914244.png)
 
   
 
@@ -2823,7 +2823,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
 ![img](http://blog.cuzz.site/2019/04/16/Java并发编程/92ad4409-2ab4-388b-9fb1-9fc4e0d832cd.jpg)
 
-![image-20191226163240322](.\images\image-20191226163240322.png)
+![image-20191226163240322](./images/image-20191226163240322.png)
 
 ## 九、线程池——生产上是如何设置合理参数
 
