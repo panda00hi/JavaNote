@@ -1,9 +1,34 @@
-1 java的三层架构：
+## 1 java的三层架构：
+
 ![img](./images/三层架构.png)
 
-2 IOC的理解
+## 2 IOC的理解
+
 层层封装，形成模块化，良好代码环境，便于维护。维护不用修改源码，只操作bean就可。
 
 当我们不想new一个对象，在获得容器的控制权后，利用镜像的方式创建操作的类对象，调用类方法。
 
+## Spring的上下文？？
+
+Spring的启动过程：
+首先，对于一个web应用，其部署在web容器中，web容器提供其一个全局的上下文环境，这个上下文就是ServletContext，其为后面的spring IoC容器提供宿主环境；
+
+其次，在web.xml中会提供有contextLoaderListener。在web容器启动时，会触发容器初始化事件，此时contextLoaderListener会监听到这个事件，其contextInitialized方法会被调用，在这个方法中，spring会初始化一个启动上下文，这个上下文被称为根上下文，即WebApplicationContext，这是一个接口类，确切的说，其实际的实现类是XmlWebApplicationContext。这个就是spring的IoC容器，其对应的Bean定义的配置由web.xml中的context-param标签指定。在这个IoC容器初始化完毕后，spring以WebApplicationContext. ROOTWEBAPPLICATIONCONTEXTATTRIBUTE为属性Key，将其存储到ServletContext中，便于获取；
+
+总结：
+
+ServletContext: tomcat启动会创建一个ServletContext，作为全局上下文以及spring容器的宿主环境，可以理解为web容器（Servlet容器）
+
+WebApplicationContext：即初始化根上下文（即IOC容器）
+
+DispatcherServlet：WebApplicationContext设置为当前DispatcherServlet的父上下文。并且也把DispatcherServlet上下文存在ServletContext中
+
+通过init方法创建的dispatcherServlet上下文可以访问通过ServletContextListener中创建的WebApplicationContext上下文中的bean，反之则不行。因为WebApplicationContext是dispatcherServlet上下文的父容器。
+
+扩展： springMVC的上下文
+spring的上下文是通过监听器来初始化，SpringMVC的上下文是通过DispatchServelet来加载，因为DispatchServelet会拦截所有我们感兴趣的请求来分发，DispatchServelet初始的时候会创建自己的上下文，并从servlet根上下文中取出我们上面说的spring上下文作为自己上下文的父容器，为什么这么做呢，因为spring中容器存在父子关系，父容器不能访问子容器的资源，而子容器可以访问父容器的资源。这样springMVC的上下文就可以获取父容器的Bean来初始化自己的Bean。
+
+参考连接：
+https://blog.csdn.net/afzaici/article/details/72353341
+https://blog.csdn.net/crazylzxlzx/article/details/53648625
 
