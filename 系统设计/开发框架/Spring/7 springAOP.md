@@ -41,9 +41,55 @@ spring 采用动态代理织入，而 AspectJ 采用编译期织入和类装载�
 
 是切入点和通知（引介）的结合。
 
-## 3 基于xml配置的aop
+## 3 通知类型
 
-### 3.1 第一步 导入aop的依赖包
+aop:before
+作用：
+用于配置前置通知。指定增强的方法在切入点方法之前执行
+属性：
+method: 用于指定通知类中的增强方法名称
+ponitcut-ref：用于指定切入点的表达式的引用
+poinitcut：用于指定切入点表达式
+执行时间点：
+切入点方法执行之前执行
+`<aop:before method="beginTransaction" pointcut-ref="pt1"/>` 
+
+aop:after-returning
+作用：
+用于配置后置通知
+属性：
+method：指定通知中方法的名称。
+pointct：定义切入点表达式
+pointcut-ref：指定切入点表达式的引用
+执行时间点：
+切入点方法正常执行之后。它和异常通知只能有一个执行
+`<aop:after-returning method="commit" pointcut-ref="pt1"/>` 
+
+aop:after-throwing
+作用：
+用于配置异常通知
+属性：
+method：指定通知中方法的名称。
+pointct：定义切入点表达式
+pointcut-ref：指定切入点表达式的引用
+执行时间点：
+切入点方法执行产生异常后执行。它和后置通知只能执行一个
+`<aop:after-throwing method="rollback" pointcut-ref="pt1"/>` 
+
+aop:after
+作用：
+用于配置最终通知
+属性：
+method：指定通知中方法的名称。
+pointct：定义切入点表达式
+pointcut-ref：指定切入点表达式的引用
+执行时间点：
+无论切入点方法执行时是否有异常，它都会在其后面执行。
+`<aop:after method="release" pointcut-ref="pt1"/>` 
+
+## 4 基于xml配置的aop
+
+### 4.1 第一步 导入aop的依赖包
 
 ``` xml
        <dependency>
@@ -53,7 +99,7 @@ spring 采用动态代理织入，而 AspectJ 采用编译期织入和类装载�
         </dependency>
 ```
 
-### 3.2 第二步 resources目录下创建bean.xml文件，并导入约束（从官方文档可得到）
+### 4.2 第二步 resources目录下创建bean.xml文件，并导入约束（从官方文档可得到）
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -68,7 +114,7 @@ spring 采用动态代理织入，而 AspectJ 采用编译期织入和类装载�
 </beans>
 ```
 
-#### 3.2.1 配置步骤
+#### 4.2.1 配置步骤
 
 spring中基于xml的aop配置步骤
 
@@ -83,7 +129,8 @@ spring中基于xml的aop配置步骤
     method属性，用于指定Logger类中哪个方法是前置通知
     pointcut属性，用于指定切入点表达式，该表达式的含义指的是对业务层中哪些方法进行增强
 
-    切入点表达式写法：
+#### 4.2.2 切入点表达式写法：
+
     关键字;execution
     标准写法：访问修饰符 返回值 全包名.类名.方法名(参数列表)
     如：public void com.panda00hi.service.impl.AccountServiceImpl.saveAccount()
@@ -119,4 +166,212 @@ spring中基于xml的aop配置步骤
     切到业务层实现类下的所有方法
 
     - com.panda00hi.service.impl.*.*(..)
+
+## 5 基于注解的aop
+
+### 5.1 配置文件中导入context的命名空间
+
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+</beans>
+```
+
+### 5.2 在各层加入注解
+
+``` JAVA
+/**
+
+* 账户的业务层实现类
+* @author 黑马程序员
+* @Company http://www.ithiema.com
+* @Version 1.0
+
+*/
+@Service("accountService")
+public class AccountServiceImpl implements IAccountService {
+@Autowired
+private IAccountDao accountDao;}
+
+/**
+
+* 账户的持久层实现类
+* @author 黑马程序员
+* @Company http://www.ithiema.com
+* @Version 1.0
+
+*/
+@Repository("accountDao")
+public class AccountDaoImpl implements IAccountDao {
+@Autowired
+private DBAssit dbAssit ;
+}
+```
+
+### 5.3 在bean.xml配置文件中，指定spring要扫描的包。开启
+
+``` xml
+<!-- 告知 spring，在创建容器时要扫描的包 -->
+<context:component-scan base-package="com.itheima"></context:component-scan>
+
+<!-- 开启 spring 对注解 AOP 的支持 -->
+<aop:aspectj-autoproxy/>
+```
+
+### 5.4 配置通知
+
+通知类加上@component注解
+并且使用@Aspect声明为切面
+
+#### 5.4.1 环绕通知注解配置@Around
+
+``` JAVA
+/**
+     * 使用环绕通知
+     * @param pjp
+     */
+    @Around("pt1()")
+    public Object aroundAdvice(ProceedingJoinPoint pjp) {
+        Object rtValue = null;
+        try {
+            // 1、获取参数
+            Object[] args = pjp.getArgs();
+            // 2、开启事务
+            this.beginTransaction();
+            // 3、执行方法
+            rtValue = pjp.proceed(args);
+            // 4、提交事务
+            this.commit();
+
+            return rtValue;
+        } catch (Throwable e) {
+            // 5、事务回滚
+            this.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6、释放连接
+            this.release();
+        }
+    }
+```
+
+#### 5.4.2 切入点表达式注解@Pointcut
+
+作用：指定切入点表达式
+
+``` JAVA
+package com.panda00hi.utils;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+/**
+ * 和事务管理相关的工具类，包含开启事务、提交、回滚、释放连接
+ * @author panda00hi
+ * 2020/1/13
+ */
+@Component("txManager")
+@Aspect
+public class TransactionManager {
+
+    @Autowired
+    private ConnectionUtils connectionUtils;
+
+    @Pointcut("execution(* com.panda00hi.service.impl.*.*(..))")
+    private void pt1() {
+
+    }
+
+    /**
+     * 开启事务
+     */
+    public void beginTransaction() {
+        try {
+            connectionUtils.getThreadConnection().setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 提交事务
+     */
+    public void commit() {
+        try {
+            connectionUtils.getThreadConnection().commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 回滚事务
+     */
+    public void rollback() {
+        try {
+            connectionUtils.getThreadConnection().rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 释放当前线程上的连接
+     */
+    public void release() {
+        // 还回连接池中
+        try {
+            connectionUtils.getThreadConnection().close();
+            connectionUtils.removeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 使用环绕通知
+     * @param pjp
+     */
+    @Around("pt1()")  // 括号不可缺
+    public Object aroundAdvice(ProceedingJoinPoint pjp) {
+        Object rtValue = null;
+        try {
+            // 1、获取参数
+            Object[] args = pjp.getArgs();
+            // 2、开启事务
+            this.beginTransaction();
+            // 3、执行方法
+            rtValue = pjp.proceed(args);
+            // 4、提交事务
+            this.commit();
+
+            return rtValue;
+        } catch (Throwable e) {
+            // 5、事务回滚
+            this.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            // 6、释放连接
+            this.release();
+        }
+    }
+
+}
+
+```
 
