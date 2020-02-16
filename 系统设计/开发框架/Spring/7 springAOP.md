@@ -193,9 +193,7 @@ spring中基于xml的aop配置步骤
 /**
 
 * 账户的业务层实现类
-* @author 黑马程序员
-* @Company http://www.ithiema.com
-* @Version 1.0
+
 
 */
 @Service("accountService")
@@ -206,9 +204,7 @@ private IAccountDao accountDao;}
 /**
 
 * 账户的持久层实现类
-* @author 黑马程序员
-* @Company http://www.ithiema.com
-* @Version 1.0
+
 
 */
 @Repository("accountDao")

@@ -130,7 +130,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 $ git checkout readme.txt
 Updated 1 path from the index
 
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ git status
 On branch master
 nothing to commit, working tree clean
@@ -148,7 +148,7 @@ nothing to commit, working tree clean
 ```
 $ rm test.txt
 
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ git status
 On branch master
 Changes not staged for commit:
@@ -168,7 +168,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 $ git rm test.txt
 rm 'test.txt'
 
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ git commit -m "remove test.txt"
 [master eb6331e] remove test.txt
  1 file changed, 1 deletion(-)

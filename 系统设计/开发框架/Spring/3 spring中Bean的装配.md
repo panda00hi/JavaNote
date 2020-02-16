@@ -24,7 +24,7 @@ public class MyBeanFactory {
 
 ``` 
 <!--静态工厂-->
-    <bean id="studentService" class="com.pandahi.factory.MyBeanStaticFactory" factory-method="createStudentService"/>
+    <bean id="studentService" class="com.panda00hi.factory.MyBeanStaticFactory" factory-method="createStudentService"/>
 ```
 
 - 实例工厂
@@ -46,7 +46,7 @@ public class MyBeanFactory {
 <!--实例工厂-->
     <!--1、把自己写的类注册到spring-->
     <!--2、实例工厂，需要factory-bean指定工厂实例，指定当前的bean是由工厂的createStudentService方法创建的-->
-    <bean id="myFactory" class="com.pandahi.factory.MyBeanFactory"/>
+    <bean id="myFactory" class="com.panda00hi.factory.MyBeanFactory"/>
     <bean id="studentService" factory-bean="myFactory" factory-method="createStudentService"/>
 ```
 参考：https://blog.csdn.net/chainiao_zhang/article/details/77334479

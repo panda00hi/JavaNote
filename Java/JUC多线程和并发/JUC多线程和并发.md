@@ -13,7 +13,7 @@
 当多个线程访问同一个变量是，一个线程改变了这个变量的值，其他线程能够立即看到修改的值。
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.TimeUnit;
 
@@ -83,7 +83,7 @@ AAA   come in …… AAA   update number value:60 mainmission is over, num value
 代码：
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -300,7 +300,7 @@ JVM运行程序的实体时线程，而每个线程创建时JVM都会为其创�
 #### 3.1 单线程模式下没有问题，但是多线程并发时，要考虑安全问题。
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 /**
  * 多线程并发情况下，单例模式存在安全问题，结果会生成多个instance，无法控制
@@ -430,7 +430,7 @@ AtomicInteger.compareAndSet(int expect, indt update)源码。
 demo：
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.atomic.AtomicInteger;
 /**
@@ -570,7 +570,7 @@ CAS算法实现一个重要前提就是需要取出内存中的数据并在当�
 原子引用: jdk自带atomicInteger等, 也可以自行进行包装, 利用AtomicReference, 将所需要的类型包装成原子类型.
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -620,7 +620,7 @@ false  User{username='li4', age=25}
 ### 3. 时间戳原子引用
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -803,7 +803,7 @@ HashSet底层是一个HashMap，存储的值放在HashMap的key里，value存储
 **集合类多线程不安全代码示例**
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.*;
 
@@ -967,7 +967,7 @@ public sync void method02()
 （1）synchronized是典型的可重入锁
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 /**
  * synchronized是典型的可重入锁
@@ -1101,7 +1101,7 @@ t4  ####invoked set()
    
 
 ``` java
-   package com.pandahi.juc;
+   package com.panda00hi.juc;
    
    import java.util.concurrent.TimeUnit;
    import java.util.concurrent.atomic.AtomicReference;
@@ -1109,7 +1109,7 @@ t4  ####invoked set()
    /**
 
     - 好处是不会阻塞，但是，其中一个线程长时间持有时，其他线程将会自旋，等待当前占用的线程释放锁，造成长时间的CPU消耗。
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/25
 
     */
@@ -1208,7 +1208,7 @@ t4  ####invoked set()
     
 
 ``` java
-    package com.pandahi.juc;
+    package com.panda00hi.juc;
     
     import java.util.HashMap;
     import java.util.Map;
@@ -1227,7 +1227,7 @@ t4  ####invoked set()
      * <p>
      * 写操作：原子+独占，整个过程必须是一个完整的过程，不能被加塞、中断
      *
-     * @Author: pandaHi
+     * @Author: panda00hi
      * @Date: 2019/12/25
      */
     public class ReadWriteLockDemo {
@@ -1369,7 +1369,7 @@ t4  ####invoked set()
    
 
 ``` java
-   package com.pandahi.juc;
+   package com.panda00hi.juc;
    
    import java.util.HashMap;
    import java.util.Map;
@@ -1392,7 +1392,7 @@ t4  ####invoked set()
 
     *
 
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/25
 
     */
@@ -1588,7 +1588,7 @@ t4  ####invoked set()
 
     *
 
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/20
 
     */
@@ -1782,14 +1782,14 @@ t4  ####invoked set()
    
 
 ``` java
-   package com.pandahi.juc;
+   package com.panda00hi.juc;
    
    import java.util.concurrent.CountDownLatch;
    import java.util.concurrent.TimeUnit;
    
    /**
 
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/25
 
     */
@@ -1861,14 +1861,14 @@ t4  ####invoked set()
    
 
 ``` java
-   package com.pandahi.juc;
+   package com.panda00hi.juc;
    
    import java.util.concurrent.BrokenBarrierException;
    import java.util.concurrent.CyclicBarrier;
    
    /**
 
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/25
 
     */
@@ -1934,7 +1934,7 @@ t4  ####invoked set()
    
 
 ``` java
-   package com.pandahi.juc;
+   package com.panda00hi.juc;
    
    import java.util.concurrent.Semaphore;
    import java.util.concurrent.TimeUnit;
@@ -1945,7 +1945,7 @@ t4  ####invoked set()
 
     *
 
-    - @Author: pandaHi
+    - @Author: panda00hi
     - @Date: 2019/12/25
 
     */
@@ -2074,7 +2074,7 @@ t4  ####invoked set()
    
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -2088,7 +2088,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2  判断    干活    通知
  * 3  防止虚假唤醒机制
  *
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/25
  */
 public class ProdConsumerTraditionDemo {
@@ -2195,7 +2195,7 @@ BBB 消费  0
 知识点：volatile、CAS、atomicInteger、BlockQueue、线程交互、原子引用
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -2205,7 +2205,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * volatile/CAS/atomicInteger/BlockQueue/线程交互/原子引用
  *
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/26
  */
 public class ProdConsumerBlockQueueDemo {
@@ -2389,7 +2389,7 @@ Prod	 大Boss叫停，表示FLAG = false，生产动作结束
 A打印5次，B打印10次，C打印15次……进行10轮。
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -2403,7 +2403,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * ……
  * 循环10轮
  *
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/26
  */
 public class SyncAndReentrantLockDemo {
@@ -2595,7 +2595,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/19
  */
 
@@ -2723,13 +2723,13 @@ AA******come in Callable
 #### 3. 代码示例
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/26
  */
 public class MyThreadPoolDemo {
@@ -2872,14 +2872,14 @@ FixedThreadPool和SingleThreadPool允许请求队列长度为Integer. MAX_VALUE�
 ### 3. 自定义线程池
 
 ``` java
-package com.pandahi.juc;
+package com.panda00hi.juc;
 
 import java.util.concurrent.*;
 
 /**
  * 实际生产生活中的自定义线程池
  *
- * @Author: pandaHi
+ * @Author: panda00hi
  * @Date: 2019/12/26
  */
 public class MyThreadPoolDemo02 {

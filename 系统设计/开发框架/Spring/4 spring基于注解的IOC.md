@@ -1,7 +1,7 @@
 随着bean的增多，spring的配置文件肯定会越来越臃肿，因此spring引入了注解。 使用注解实现依赖注入的话，就不需要在applicationContext.xml中注册bean了，添加一个文件扫描器即可：
 ```xml
 <!--文件扫描器,扫描指定包下的类-->
-<context:component-scan base-package="com.pandahi"/>
+<context:component-scan base-package="com.panda00hi"/>
 ```
 ##　1 用于创建对象的@Service、@Controller、@Component、@Repository
 

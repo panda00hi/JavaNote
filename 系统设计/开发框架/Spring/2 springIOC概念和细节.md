@@ -409,7 +409,7 @@ factory-method="createAccountService"></bean>
 创建一个类实现BeanPostProcessor接口, 这里面通过jdk自带的动态代理来实现对bean功能的增强：
 
 ``` JAVA
-package com.pandahi.proxy;
+package com.panda00hi.proxy;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

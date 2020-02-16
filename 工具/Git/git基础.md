@@ -40,11 +40,11 @@ Git是一个开源的分布式版本控制系统，用于敏捷高效地处理�
 首先，创建一个版本库。在合适目录，创建一个空目录learnGit，进入该目录下，运行git init进行初始化，初始化后会生成隐藏文件.git，使用ls -a可查看。
 
 ```
-panda@pandaHi MINGW64 /d/learnGit
+panda@panda00hi MINGW64 /d/learnGit
 $ git init
 Initialized empty Git repository in D:/learnGit/.git/
 
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ ls -a
 ./  ../  .git/
 ```
@@ -133,10 +133,10 @@ index d8036c1..013b5bc 100644
 当确认了修改的内容后，提交修改和提交新文件步骤一样，先git add， 执行git commit，使用git status查看下状态。
 
 ```
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ git add readme.txt
 
-panda@pandaHi MINGW64 /d/learnGit (master)
+panda@panda00hi MINGW64 /d/learnGit (master)
 $ git status
 On branch master
 Changes to be committed:
@@ -182,19 +182,19 @@ $ git commit -m "add words distributed under the GPL."
 ```
 $ git log
 commit f0ec9c4c7c00f7762d5ddcebfc14a43f29ce6e5f (HEAD -> master)
-Author: pandahi
+Author: panda00hi
 Date:   Wed Jul 31 16:51:45 2019 +0800
 
     add words distributed under the GPL.
 
 commit 9f023f46af68149ecbc0ee58300c9be83ffd3617
-Author: pandahi
+Author: panda00hi
 Date:   Wed Jul 31 16:38:37 2019 +0800
 
     add word distributed
 
 commit addc646b8f90a282de97aa1b3c7a1203da823f75
-Author: pandahi
+Author: panda00hi
 Date:   Wed Jul 31 16:19:37 2019 +0800
 
     wrote a readme file
@@ -226,13 +226,13 @@ HEAD is now at 9f023f4 add word distributed
 ```
 $ git log
 commit 9f023f46af68149ecbc0ee58300c9be83ffd3617 (HEAD -> master)
-Author: pandahi
+Author: panda00hi
 Date:   Wed Jul 31 16:38:37 2019 +0800
 
     add word distributed
 
 commit addc646b8f90a282de97aa1b3c7a1203da823f75
-Author: pandahi
+Author: panda00hi
 Date:   Wed Jul 31 16:19:37 2019 +0800
 
     wrote a readme file
