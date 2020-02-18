@@ -549,6 +549,8 @@ cell.setCellStyle(style);
 
 ## 2 @ResponseBody 响应 json 数据
 
+一般在异步获取数据时使用，在使用@RequestMapping后，返回值通常解析为跳转路径，加上@responsebody后返回结果不会被解析为跳转路径，而是直接写入HTTP response body中。比如异步获取json数据，加上@responsebody后，会直接返回json数据。
+
 **作用：**
 该注解用于将 Controller 的方法返回的对象，通过 HttpMessageConverter 接口转换为指定格式的
 数据如：json, xml 等，通过 Response 响应给客户端
@@ -611,3 +613,26 @@ return account;
 ```
 运行结果：
 ![img](./images/responsebody响应json示例.png)
+
+> 扩展
+@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的是，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。
+如果添加了 @ResponseBody 这个注解， 则表明该方法的返回值直接写入到 HTTP Response Body 中。
+
+```java
+@RequestMapping("/login")
+　　@ResponseBody
+　　public User login(User user){
+　　　　return user;
+　　}
+　　//User字段：userName pwd
+　　//那么在前台接收到的数据为：'{"userName":"xxx","pwd":"xxx"}'
+ 
+　　//效果等同于如下代码：
+　　@RequestMapping("/login")
+　　public void login(User user, HttpServletResponse response){
+　　　　response.getWriter.write(JSONObject.fromObject(user).toString());
+　　}
+```
+
+**原理**：控制层方法的返回值是如何转化为json格式的字符串的？
+通过HttpMessageConverter中的方法实现的，它本是一个接口，在其实现类完成转换。如果是bean对象，会调用对象的getXXX（）方法获取属性值并且以键值对的形式进行封装，进而转化为json串。如果是map集合，采用get(key)方式获取value值，然后进行封装。

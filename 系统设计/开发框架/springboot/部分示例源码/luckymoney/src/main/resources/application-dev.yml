@@ -1,0 +1,24 @@
+# Dev开发环境配置
+server:
+  port: 8082
+  servlet:
+    context-path: /luckymoney
+
+# limit视为一个对象进行配置
+limit:
+  minMoney: 0.01
+  maxMoney: 9999
+  description: 最少要发${limit.minMoney}元，最多发${limit.maxMoney}元
+
+
+# 数据库连接
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/luckymoney?characterEncoding=utf-8
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

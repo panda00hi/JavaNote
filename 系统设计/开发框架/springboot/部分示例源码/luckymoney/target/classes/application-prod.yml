@@ -1,0 +1,10 @@
+# 生产环境配置
+server:
+  port: 8082
+  servlet:
+    context-path: /luckymoney
+
+limit:
+  minMoney: 1
+  maxMoney: 9999
+  description: 最少要发${limit.minMoney}元，最多发${limit.maxMoney}元
